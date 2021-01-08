@@ -2,10 +2,14 @@ package com.example.become_the_maestro;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.TextView;
@@ -19,6 +23,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int c5,c5sharp,d5,d5sharp,e5,f5,f5sharp,g5,g5sharp,a5,a5sharp,b5;
     private int c6,c6sharp,d6,d6sharp,e6,f6,f6sharp,g6,g6sharp,a6,a6sharp,b6;
     private int c7,c7sharp,d7,d7sharp,e7,f7,f7sharp,g7,g7sharp,a7,a7sharp,b7;
+
+    private Button smpl1, smpl2, smpl3, smpl4, stp;
+    private int sample1, sample2, sample3, sample4, stop;
+
+    private Button left, right;
 
 
     private HorizontalScrollView scrollView;
@@ -166,6 +175,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_main);
 
 
@@ -178,10 +191,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Method for all TextViews
         initializeTextViewLabelesOnPianoKeys();
 
+        // Method for interface buttons
+        initializeSampleButtons();
+
         // code fore soundpool
 
         soundPool = new SoundPool.Builder()
-                .setMaxStreams(6)
+                .setMaxStreams(10)
                 .build();
 
         c3 = soundPool.load(this,R.raw.c3,1);
@@ -249,9 +265,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         a7sharp = soundPool.load(this,R.raw.a7sharp,1);
         b7 = soundPool.load(this,R.raw.b7,1);
 
+        sample1=soundPool.load(this, R.raw.sample1,1);//wczytuje dzwiek sampli
+        sample2=soundPool.load(this, R.raw.sample2,1);
+        sample3=soundPool.load(this, R.raw.sample3,1);
+        sample4=soundPool.load(this, R.raw.sample4,1);
+        stop=soundPool.load(this, R.raw.stop,1);
+
+        AudioManager audioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
 
 
+        Button upButton = (Button) findViewById(R.id.upButton);
+        upButton.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+
+//To increase media player volume
+                audioManager.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
+            }
+        });
+
+        Button downButton = (Button) findViewById(R.id.downButton);
+        downButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+//To decrease media player volume
+                audioManager.adjustVolume(AudioManager.ADJUST_LOWER, AudioManager.FLAG_PLAY_SOUND);
+            }
+        });
+
+        left = (Button) findViewById(R.id.left);
+        right= (Button) findViewById(R.id.right);
+
+        left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView.scrollTo((int) scrollView.getScrollX() - 1000, (int) scrollView.getScrollX());
+            }
+        });
+
+        right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView.scrollTo((int) scrollView.getScrollX() + 1000, (int) scrollView.getScrollY());
+            }
+        });
 
     }
 
@@ -459,6 +519,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonB7.setOnClickListener(this);
     }
 
+    void initializeSampleButtons(){
+        smpl1=(Button)findViewById(R.id.sampel1);
+        smpl1.setOnClickListener(this);
+        smpl2=(Button)findViewById(R.id.sampel2);
+        smpl2.setOnClickListener(this);
+        smpl3=(Button)findViewById(R.id.sampel3);
+        smpl3.setOnClickListener(this);
+        smpl4=(Button)findViewById(R.id.sampel4);
+        smpl4.setOnClickListener(this);
+        stp=(Button)findViewById(R.id.stop);
+        stp.setOnClickListener(this);
+    }
+
+
     @Override
     public void onClick(View v) {
 
@@ -473,6 +547,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 soundPool.play(c3sharp,1,1,0,0,1);
                 break;
 
+            case R.id.td3:
             case R.id.p2:
                 soundPool.play(d3,1,1,0,0,1);
                 break;
@@ -481,10 +556,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 soundPool.play(d3sharp,1,1,0,0,1);
                 break;
 
+            case R.id.te3:
             case R.id.p3:
                 soundPool.play(e3,1,1,0,0,1);
                 break;
 
+            case R.id.tf3:
             case R.id.p4:
                 soundPool.play(f3,1,1,0,0,1);
                 break;
@@ -493,6 +570,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 soundPool.play(f3sharp,1,1,0,0,1);
                 break;
 
+            case R.id.tg3:
             case R.id.p5:
                 soundPool.play(g3,1,1,0,0,1);
                 break;
@@ -501,6 +579,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 soundPool.play(g3sharp,1,1,0,0,1);
                 break;
 
+            case R.id.ta3:
             case R.id.p6:
                 soundPool.play(a3,1,1,0,0,1);
                 break;
@@ -509,10 +588,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 soundPool.play(a3sharp,1,1,0,0,1);
                 break;
 
+            case R.id.tb3:
             case R.id.p7:
                 soundPool.play(b3,1,1,0,0,1);
                 break;
 
+            case R.id.tc4:
             case R.id.p8:
                 soundPool.play(c4,1,1,0,0,1);
                 break;
@@ -521,6 +602,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 soundPool.play(c4sharp,1,1,0,0,1);
                 break;
 
+            case R.id.td4:
             case R.id.p9:
                 soundPool.play(d4,1,1,0,0,1);
                 break;
@@ -529,10 +611,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 soundPool.play(d4sharp,1,1,0,0,1);
                 break;
 
+            case R.id.te4:
             case R.id.p10:
                 soundPool.play(e4,1,1,0,0,1);
                 break;
 
+            case R.id.tf4:
             case R.id.p11:
                 soundPool.play(f4,1,1,0,0,1);
                 break;
@@ -541,6 +625,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 soundPool.play(f4sharp,1,1,0,0,1);
                 break;
 
+            case R.id.tg4:
             case R.id.p12:
                 soundPool.play(g4,1,1,0,0,1);
                 break;
@@ -549,6 +634,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 soundPool.play(g4sharp,1,1,0,0,1);
                 break;
 
+            case R.id.ta4:
             case R.id.p13:
                 soundPool.play(a4,1,1,0,0,1);
                 break;
@@ -557,10 +643,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 soundPool.play(a4sharp,1,1,0,0,1);
                 break;
 
+            case R.id.tb4:
             case R.id.p14:
                 soundPool.play(b4,1,1,0,0,1);
                 break;
 
+            case R.id.tc5:
             case R.id.p15:
                 soundPool.play(c5,1,1,0,0,1);
                 break;
@@ -569,6 +657,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 soundPool.play(c5sharp,1,1,0,0,1);
                 break;
 
+            case R.id.td5:
             case R.id.p16:
                 soundPool.play(d5,1,1,0,0,1);
                 break;
@@ -577,10 +666,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 soundPool.play(d5sharp,1,1,0,0,1);
                 break;
 
+            case R.id.te5:
             case R.id.p17:
                 soundPool.play(e5,1,1,0,0,1);
                 break;
 
+            case R.id.tf5:
             case R.id.p18:
                 soundPool.play(f5,1,1,0,0,1);
                 break;
@@ -589,6 +680,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 soundPool.play(f5sharp,1,1,0,0,1);
                 break;
 
+            case R.id.tg5:
             case R.id.p19:
                 soundPool.play(g5,1,1,0,0,1);
                 break;
@@ -597,6 +689,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 soundPool.play(g5sharp,1,1,0,0,1);
                 break;
 
+            case R.id.ta5:
             case R.id.p20:
                 soundPool.play(a5,1,1,0,0,1);
                 break;
@@ -605,10 +698,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 soundPool.play(a5sharp,1,1,0,0,1);
                 break;
 
+            case R.id.tb5:
             case R.id.p21:
                 soundPool.play(b5,1,1,0,0,1);
                 break;
 
+            case R.id.tc6:
             case R.id.p22:
                 soundPool.play(c6,1,1,0,0,1);
                 break;
@@ -617,6 +712,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 soundPool.play(c6sharp,1,1,0,0,1);
                 break;
 
+            case R.id.td6:
             case R.id.p23:
                 soundPool.play(d6,1,1,0,0,1);
                 break;
@@ -625,10 +721,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 soundPool.play(d6sharp,1,1,0,0,1);
                 break;
 
+            case R.id.te6:
             case R.id.p24:
                 soundPool.play(e6,1,1,0,0,1);
                 break;
 
+            case R.id.tf6:
             case R.id.p25:
                 soundPool.play(f6,1,1,0,0,1);
                 break;
@@ -637,6 +735,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 soundPool.play(f6sharp,1,1,0,0,1);
                 break;
 
+            case R.id.tg6:
             case R.id.p26:
                 soundPool.play(g6,1,1,0,0,1);
                 break;
@@ -645,6 +744,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 soundPool.play(g6sharp,1,1,0,0,1);
                 break;
 
+            case R.id.ta6:
             case R.id.p27:
                 soundPool.play(a6,1,1,0,0,1);
                 break;
@@ -653,10 +753,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 soundPool.play(a6sharp,1,1,0,0,1);
                 break;
 
+            case R.id.tb6:
             case R.id.p28:
                 soundPool.play(b6,1,1,0,0,1);
                 break;
 
+            case R.id.tc7:
             case R.id.p29:
                 soundPool.play(c7,1,1,0,0,1);
                 break;
@@ -665,6 +767,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 soundPool.play(c7sharp,1,1,0,0,1);
                 break;
 
+            case R.id.td7:
             case R.id.p30:
                 soundPool.play(d7,1,1,0,0,1);
                 break;
@@ -673,10 +776,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 soundPool.play(d7sharp,1,1,0,0,1);
                 break;
 
+            case R.id.te7:
             case R.id.p31:
                 soundPool.play(e7,1,1,0,0,1);
                 break;
 
+            case R.id.tf7:
             case R.id.p32:
                 soundPool.play(f7,1,1,0,0,1);
                 break;
@@ -685,6 +790,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 soundPool.play(f7sharp,1,1,0,0,1);
                 break;
 
+            case R.id.tg7:
             case R.id.p33:
                 soundPool.play(g7,1,1,0,0,1);
                 break;
@@ -693,6 +799,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 soundPool.play(g7sharp,1,1,0,0,1);
                 break;
 
+            case R.id.ta7:
             case R.id.p34:
                 soundPool.play(a7,1,1,0,0,1);
                 break;
@@ -701,12 +808,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 soundPool.play(a7sharp,1,1,0,0,1);
                 break;
 
+            case R.id.tb7:
             case R.id.p35:
                 soundPool.play(b7,1,1,0,0,1);
+                break;
+
+            case R.id.sampel1:
+                soundPool.play(sample1,1,1,0,4,1);
+                break;
+
+            case R.id.sampel2:
+                soundPool.play(sample2,1,1,0,4,1);
+                break;
+
+            case R.id.sampel3:
+                soundPool.play(sample3,1,1,0,4,1);
+                break;
+
+            case R.id.sampel4:
+                soundPool.play(sample4,1,1,0,4,1);
+                break;
+
+            case R.id.stop:
+                soundPool.autoPause();
                 break;
 
 
         }
 
     }
+
 }

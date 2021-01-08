@@ -15,6 +15,7 @@
     >
 
     <HorizontalScrollView
+        android:layout_marginTop="30dp"
         android:id="@id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -358,6 +359,8 @@
                 style="@style/black_piano_key_style"
                 android:layout_toRightOf="@id/p34" />
 
+
+
             <TextView
                 android:id="@+id/tc3"
                 style="@style/style_for_TextView_keyText3"
@@ -642,4 +645,100 @@
 
         </RelativeLayout>
     </HorizontalScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/left"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/left"
+            />
+
+        <Button
+            android:id="@+id/right"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/right"
+            />
+
+        <Button
+            android:id="@+id/sampel1"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:background="#F44336"
+            android:layout_marginStart="100dp"
+            android:text="BEAT1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/sampel2"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="35dp"
+            android:background="#E91E63"
+            android:text="BEAT2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/sampel3"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="200dp"
+            android:background="#CDDC39"
+            android:text="BEAT3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/sampel4"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="200dp"
+            android:layout_marginTop="35dp"
+            android:background="#03A9F4"
+            android:text="BEAT4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/stop"
+            android:layout_width="80dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="300dp"
+            android:background="#CB0000"
+            android:text="STOP"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/upButton"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="400dp"
+            android:layout_marginTop="35dp"
+            android:text="UP" />
+
+        <Button
+            android:id="@+id/downButton"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="400dp"
+            android:text="DOWN" />
+
+
+    </RelativeLayout>
+
+
 </RelativeLayout>
