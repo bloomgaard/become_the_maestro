@@ -195,7 +195,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initializeSampleButtons();
 
         // code fore soundpool
-
         soundPool = new SoundPool.Builder()
                 .setMaxStreams(10)
                 .build();
@@ -280,7 +279,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
 
-//To increase media player volume
+        //To increase media player volume
                 audioManager.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.FLAG_PLAY_SOUND);
             }
         });
@@ -291,7 +290,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
 
-//To decrease media player volume
+        //To decrease media player volume
                 audioManager.adjustVolume(AudioManager.ADJUST_LOWER, AudioManager.FLAG_PLAY_SOUND);
             }
         });
